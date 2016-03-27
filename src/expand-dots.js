@@ -6,6 +6,7 @@ import {
 import Color from 'color';
 import pickRandom from './pick-random';
 import transformArray from './transform-array';
+import generateTextMatrix from './text-matrix-array';
 
 module.exports = function ({
   arr,
@@ -25,6 +26,8 @@ module.exports = function ({
 
   ctx.font = '11px monospace';
   const textOptions = 'asdfghjk!@#$%^&*()'.split('');
+  const {value : textMatrix, refresh : refreshText} = generateTextMatrix(rows, columns, squareHeight);
+  let displacement = 0;
 
   return {
     render: () => {
@@ -32,13 +35,14 @@ module.exports = function ({
       ctx.fillRect(0, 0, width, height);
       times(rows, nRow => {
         times(columns, nColumn => {
-          const text = pickRandom(textOptions);
+          const text = textMatrix[nRow][nColumn];
           ctx.fillStyle = transformedArray[nRow][nColumn].fillStyle;
-          ctx.fillText(text, nColumn * squareWidth, nRow * squareHeight);
+          ctx.fillText(text, nColumn * squareWidth, nRow * squareHeight + displacement);
           // ctx.fillRect(nColumn * squareWidth, nRow * squareHeight, squareWidth, squareHeight);
         });
       });
-
+      displacement += 1;
+      displacement = refreshText(displacement);
     }
   }
 };

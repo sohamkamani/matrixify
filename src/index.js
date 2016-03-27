@@ -32,6 +32,6 @@ img.onload = function () {
       dimensions
     });
 
-    setInterval(()=>renderer.render(), 1000 / 60);
+    setInterval(()=>renderer.render(), 1000 / 10);
 };
 img.src = '/images/mountain.jpg';
