@@ -1,44 +1,37 @@
 'use strict';
 import {chunk, mean} from 'lodash';
-import drawMatrix from './expand-dots';
+import createRenderer from './expand-dots';
+import transformArray from './transform-array';
 
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
+ctx.fillStyle = '#000';
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
 const dimensions = {
-  w : 30,
-  h : 20
+  w : 100,
+  h : 80
 };
 const img = new Image(dimensions.w, dimensions.h);
 img.onload = function () {
 
-    // canvas.height = canvas.width * (img.height / img.width);
-    //
-    // /// step 1
     var oc = document.createElement('canvas'),
         octx = oc.getContext('2d');
-    //
     oc.width = dimensions.w;
     oc.height = dimensions.h;
     octx.drawImage(img, 0, 0, oc.width, oc.height);
-    // octx.drawImage(oc, 0, 0, oc.width * scale, oc.height * scale);
-    //
+
     const imageData = octx.getImageData(0,0,oc.width, oc.height);
     const imgArray = Array.from(imageData.data);
-    const chunkedArray = chunk(imgArray, oc.width * 4).map(row => chunk(row, 4).map(([r,g,b]) => 0.2126*r + 0.7152*g + 0.0722*b));
-
-    /// step 2
-    console.log('log:',imageData);
-    drawMatrix({
-      arr : chunkedArray,
+    const renderer = createRenderer({
+      arr : imgArray,
       ctx,
       width : canvas.width,
-      height : canvas.height
+      height : canvas.height,
+      dimensions
     });
 
-    // ctx.putImageData(imageData, 10, 10)
-    // ctx.drawImage(img, 0,0);
-    // ctx.drawImage(oc, 0, 0, oc.width * scale, oc.height * scale,
-    // 0, 0, canvas.width, canvas.height);
+    setInterval(()=>renderer.render(), 1000 / 60);
 };
-img.src = '/images/async.png';
+img.src = '/images/mountain.jpg';
