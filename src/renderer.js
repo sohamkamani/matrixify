@@ -46,7 +46,7 @@ module.exports = function ({
           ctx.fillRect(nColumn * squareWidth, nRow * squareHeight, squareWidth, squareHeight);
         });
       });
-      displacement += 2;
+      displacement += 3;
       displacement = refreshText(displacement);
     }
   }

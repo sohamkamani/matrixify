@@ -1,11 +1,15 @@
 'use strict';
-import createRenderer from './expand-dots';
+import createRenderer from './renderer';
 
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
 ctx.fillStyle = '#000';
 ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+ctx.font = '21px monospace';
+ctx.fillStyle = '#5EFF00';
+ctx.fillText('Upload any image file ^^^', 10,30);
 
 const dimensions = {
   w: 100,
@@ -30,7 +34,11 @@ const onImageLoad = function () {
     dimensions
   });
 
-  setInterval(() => renderer.render(), 1000 / 30);
+  const render = ()=>{
+    renderer.render();
+    window.requestAnimationFrame(render);
+  };
+  render();
 };
 
 // img.src = '/images/mountain.jpg';
