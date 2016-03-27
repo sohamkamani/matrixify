@@ -1,7 +1,5 @@
 'use strict';
-import {chunk, mean} from 'lodash';
 import createRenderer from './expand-dots';
-import transformArray from './transform-array';
 
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
@@ -32,6 +30,6 @@ img.onload = function () {
       dimensions
     });
 
-    setInterval(()=>renderer.render(), 1000 / 10);
+    setInterval(()=>renderer.render(), 1000 / 30);
 };
 img.src = '/images/mountain.jpg';

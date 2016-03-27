@@ -4,12 +4,12 @@ import {times} from 'lodash';
 
 module.exports = (row, col, squareSize)=> {
   const textOptions = 'asdfghjk!@#$%^&*()'.split('');
-  let textMatrix = times(row + 3).map(()=> times(col, ()=> pickRandom(textOptions)));
+  let textMatrix = times(row + 2).map(()=> times(col, ()=> pickRandom(textOptions)));
 
   return{
     value : textMatrix,
     refresh : displacement => {
-      if(displacement <= squareSize){
+      if(displacement < squareSize - 1){
         return displacement;
       }
       textMatrix.pop();

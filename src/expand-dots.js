@@ -33,15 +33,20 @@ module.exports = function ({
     render: () => {
       ctx.fillStyle = '#000';
       ctx.fillRect(0, 0, width, height);
-      times(rows, nRow => {
+      times(rows + 1, nRow => {
         times(columns, nColumn => {
           const text = textMatrix[nRow][nColumn];
-          ctx.fillStyle = transformedArray[nRow][nColumn].fillStyle;
+          ctx.fillStyle = '#5EFF00';
           ctx.fillText(text, nColumn * squareWidth, nRow * squareHeight + displacement);
-          // ctx.fillRect(nColumn * squareWidth, nRow * squareHeight, squareWidth, squareHeight);
         });
       });
-      displacement += 1;
+      times(rows, nRow => {
+        times(columns, nColumn => {
+          ctx.fillStyle = transformedArray[nRow][nColumn].fillStyle;
+          ctx.fillRect(nColumn * squareWidth, nRow * squareHeight, squareWidth, squareHeight);
+        });
+      });
+      displacement += 2;
       displacement = refreshText(displacement);
     }
   }
