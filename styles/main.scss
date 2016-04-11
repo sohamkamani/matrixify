@@ -3,9 +3,12 @@ html {
   margin: 0;
   padding: 0;
 }
+
+$icon-size : 35px;
+$matrix-color : #5EFF00;
+
 .container {
   width: 100%;
-  height: 100%;
 }
 .header {
   background-color: #212121;
@@ -13,10 +16,32 @@ html {
   -moz-box-shadow: 0 0 11px 0 rgba(0,0,0,0.75);
   box-shadow: 0 0 11px 0 rgba(0,0,0,0.75);
   font-size: 2.3em;
-  color: #5EFF00;
+  color: $matrix-color;
   font-family: monospace;
   text-align: center;
   padding: 5px;
+  position: relative;
+
+  &--right {
+    position: absolute;;
+    left: 10px;
+    top : 5px;
+  }
+  &--icon {
+    background: $matrix-color;
+    border-radius: 50%;
+    height: $icon-size;
+    width: $icon-size;
+    cursor: pointer;
+
+    span {
+      vertical-align: middle;
+    }
+
+    &:hover {
+      background: darken($matrix-color, 10%);
+    }
+  }
 }
 .upload-image {
   font-size: 1.3em;
@@ -28,5 +53,12 @@ html {
     margin: 10px auto;
     width: 90%;
     height: 80%;
+  }
+}
+
+@media (max-width : 800px) {
+  .fork-me-on-github{
+    height: 90px;
+    width: 90px;
   }
 }
